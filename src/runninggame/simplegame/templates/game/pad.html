@@ -48,6 +48,12 @@
                     $('#rightButton').removeAttr('disabled');
                     $('#message').text('All ok! You can play!');
                 }
+                if(data.gameStarted){
+                    $('#startButton').attr('disabled', 'disabled');
+                }
+                if(data.gameFinished){
+                    $('#startButton').removeAttr('disabled');
+                }
             });
             socket.send(JSON.stringify({
                 'action': 'subscribe',
