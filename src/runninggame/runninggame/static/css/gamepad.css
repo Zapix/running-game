@@ -1,0 +1,17 @@
+.btn-large {
+    padding: 14px 16px;
+    font-size: 30px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.padButtons{
+    margin-top: 20%;
+}
+
+.controlButton{
+    width: 35%;
+}
+.startButton{
+    width: 28%;
+}

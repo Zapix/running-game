@@ -1,0 +1,52 @@
+{% extends "game/base.html" %}
+{% load staticfiles %}
+{% load absurl_tags %}
+
+{% block title %}Running game!{% endblock title %}
+
+{% block content %}
+    <h1>Running game</h1>
+    <div class="row">
+        <div id="cr-stage"></div>
+    </div>
+    <div class="row">
+        <a href="{% absurl "gamepad" auth_code=auth_code %}">{% absurl "gamepad" auth_code=auth_code %}</a>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static "js/lib/socket.io.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/lib/qrcode.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/lib/crafty.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/game.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/components.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/scenes.js" %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function(){
+            var actor_type = '{{ actor_type }}';
+            var auth_code = '{{ auth_code }}';
+            var listen_actor_type = '{{ listen_actor_type }}';
+            socket = io.connect();
+            socket.on('message', function(recvData){
+                console.log(recvData);
+                var data = $.parseJSON(recvData);
+                if(data.leftButtonPressed){
+                    Crafty.trigger('LeftButtonPressed', null);
+                }
+                if(data.startButtonPressed){
+                    Crafty.trigger('StartButtonPressed', null);
+                }
+                if(data.rightButtonPressed){
+                    Crafty.trigger('RightButtonPressed', null);
+                }
+            });
+            socket.send(JSON.stringify({
+                'action': 'subscribe',
+                'actor_type': actor_type,
+                'auth_code': auth_code,
+                'listen_actor_type': listen_actor_type
+            }));
+            Game.init('{% absurl 'gamepad' auth_code=auth_code %}', '{% static "img/tile1.png" %}');
+        })();
+    </script>
+{% endblock script %}

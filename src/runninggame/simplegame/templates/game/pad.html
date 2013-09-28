@@ -1,0 +1,58 @@
+{% extends "game/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Gamepad{% endblock title %}
+
+{% block css %}
+    <link href="{% static "css/gamepad.css" %}" rel="stylesheet">
+{% endblock css %}
+
+{% block navigation_wrap %}{% endblock navigation_wrap %}
+
+{% block content %}
+    <div class="padButtons">
+        <a id="leftButton" href="#" class="btn btn-success btn-large controlButton"> left</a>
+        <a id="startButton" href="#" class="btn btn-danger btn-large startButton"> start</a>
+        <a id="rightButton" href="#" class="btn btn-success btn-large controlButton"> right</a>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static "js/lib/socket.io.js" %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        (function(){
+            var actor_type = '{{ actor_type }}';
+            var auth_code = '{{ auth_code }}';
+            var listen_actor_type = '{{ listen_actor_type }}';
+            socket = io.connect()
+            socket.on('message', function(recvData){
+                console.log(recvData);
+            });
+            socket.send(JSON.stringify({
+                'action': 'subscribe',
+                'actor_type': actor_type,
+                'auth_code': auth_code,
+                'listen_actor_type': listen_actor_type
+            }));
+
+            $('#leftButton').on('click', function(){
+                socket.send(JSON.stringify({
+                    'action': 'send',
+                    'leftButtonPressed': true
+                }));
+            });
+            $('#startButton').on('click', function(){
+                socket.send(JSON.stringify({
+                    'action': 'send',
+                    'startButtonPressed': true
+                }));
+            });
+            $('#rightButton').on('click', function(){
+                socket.send(JSON.stringify({
+                    'action': 'send',
+                    'rightButtonPressed': true
+                }));
+            });
+        })();
+    </script>
+{% endblock script %}

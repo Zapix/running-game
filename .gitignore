@@ -1,4 +1,6 @@
 *.log
 *.pot
 *.pyc
-.idea/
+*.db
+local_settings.py
+src/.idea
