@@ -58,6 +58,19 @@
                 'auth_code': auth_code,
                 'listen_actor_type': listen_actor_type
             }));
+            $(document).on('gameStarted', function(){
+                socket.send(JSON.stringify({
+                    'action': 'send',
+                    'gameStarted': true
+                }));
+            });
+            $(document).on('gameFinished', function(){
+                socket.send(JSON.stringify({
+                    'action': 'send',
+                    'gameFinished': true
+                }));
+            });
+
             Game.init('{% absurl 'gamepad' auth_code=auth_code %}', '{% static "img/tile1.png" %}');
         })();
     </script>

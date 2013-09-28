@@ -50,6 +50,7 @@ Crafty.scene('Game', function(){
         this.unbind('CanBuildNew', this.canBuildNewHandler);
         this.unbind('AddOnePoint',this.addOnePointHandler);
         this.unbind('HeroDead', this.heroDeadHandler);
+        $(document).trigger('gameFinished')
     });
 }, function(){
 });
@@ -63,6 +64,7 @@ Crafty.scene('InitGame', function(){
 
         this.startGame = this.bind('StartButtonPressed', function(){
             console.log('Start Game');
+            $(document).trigger('gameStarted');
             Crafty.scene('Game');
         });
    Crafty.e('HTML')
@@ -87,6 +89,7 @@ Crafty.scene('Defeat', function(){
 
     this.startGame = this.bind('StartButtonPressed', function(){
         console.log('Start Game');
+        $(document).trigger('gameStarted');
         Crafty.scene('Game');
     });
 }, function(){
