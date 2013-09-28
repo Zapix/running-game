@@ -4,13 +4,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns(
     '',
     url(r'^', include('simplegame.urls')),
     url(r'^', include('websocket.urls')),
+    url(r'^admin/', include(admin.site.urls))
 )
 
 if settings.DEBUG:

@@ -8,6 +8,8 @@ Game = {
         }
     },
     pointCounter: 0,
+    gamepadUrl: '',
+    tileUrl: '',
     getWidth: function(){
         return this.gameGrid.width * this.gameGrid.tile.width;
     },
@@ -17,7 +19,11 @@ Game = {
     /**
      * Initialize running game
      */
-    init: function(){
+    init: function(gamepadUrl, tileUrl){
+
+        this.gamepadUrl = gamepadUrl;
+        this.tileUrl = tileUrl;
+
         Crafty.init(this.getWidth(), this.getHeight());
         Crafty.background('#FFCA80');
         Crafty.scene('Loading');

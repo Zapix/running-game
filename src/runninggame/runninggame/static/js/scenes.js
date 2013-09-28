@@ -65,6 +65,15 @@ Crafty.scene('InitGame', function(){
             console.log('Start Game');
             Crafty.scene('Game');
         });
+   Crafty.e('HTML')
+       .attr({x:44, y:200, w:200, y:200})
+       .replace("<div id=\"qrcode\"></div>");
+
+   var qrcode = new QRCode("qrcode", {
+       text: Game.gamepadUrl,
+       width: 200,
+       height: 200
+   });
 }, function(){
     this.unbind('StartButtonPressed', this.startGame);
 });
@@ -92,14 +101,14 @@ Crafty.scene('Loading', function(){
         .css($textCss);
 
     Crafty.load([
-        'static/img/tile1.png'
+        Game.tileUrl
     ], function(){
-        Crafty.sprite(32, 'static/img/tile1.png', {
+        Crafty.sprite(32, Game.tileUrl, {
             spriteBox: [0, 0],
             spriteRightWall: [1, 0],
             spriteLeftWall: [2, 0]
         });
-        Crafty.sprite(32, 'static/img/tile1.png', {
+        Crafty.sprite(32, Game.tileUrl, {
             spriteHero: [0, 1]
         });
     });
