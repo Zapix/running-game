@@ -19,16 +19,22 @@ Crafty.c('Grid', {
 
 Crafty.c('Actor', {
     init: function(){
-        this.requires('2D, Canvas, Grid, Color');
+        this.requires('2D, Canvas, Grid');
     }
 })
 
 
-Crafty.c('Wall', {
+Crafty.c('LeftWall', {
    init: function(){
-       this.requires('Actor');
-       this.color('#8C5406');
+       this.requires('Actor, spriteLeftWall');
    }
+});
+
+
+Crafty.c('RightWall', {
+    init: function(){
+        this.requires('Actor, spriteRightWall');
+    }
 });
 
 
@@ -67,16 +73,14 @@ Crafty.c('MoveGrid', {
 
 Crafty.c('Block', {
     init: function(){
-        this.requires('MoveGrid');
-        this.color('#E01B5D');
+        this.requires('MoveGrid, spriteBox');
     }
 });
 
 
 Crafty.c('BuildNewFlagReceiver',{
     init: function(){
-        this.requires('2D, Canvas, Grid, Color');
-        this.color('red');
+        this.requires('2D, Canvas, Grid');
     }
 });
 
@@ -84,7 +88,6 @@ Crafty.c('BuildNewFlagReceiver',{
 Crafty.c('BuildNewFlag', {
     init: function(){
         this.requires('MoveGrid');
-        this.color('green');
         this.onHit('BuildNewFlagReceiver', this.newFlagReceived);
     },
 
@@ -97,7 +100,6 @@ Crafty.c('BuildNewFlag', {
 Crafty.c('AddPointCell', {
     init: function(){
         this.requires('Actor');
-        this.color('blue')
     }
 });
 
@@ -105,7 +107,6 @@ Crafty.c('AddPointCell', {
 Crafty.c('PointGrid', {
     init: function(){
         this.requires('MoveGrid');
-        this.color('yellow');
         this.onHit('AddPointCell', this.addPoint);
     },
 
@@ -124,11 +125,12 @@ Crafty.c('Destroyer', {
 
 Crafty.c('Hero', {
     init: function(){
-        this.requires('Actor, Collision');
-        this.color('Grey');
+        this.requires('Actor, Collision, spriteHero, SpriteAnimation');
         this.bind('LeftButtonPressed', this.stepLeft);
         this.bind('RightButtonPressed', this.stepRight);
         this.onHit('Block', this.dieHero);
+        this.animate('MoveUp', 0, 1, 2);
+        this.animate('MoveUp', 4, -1);
     },
 
     /*

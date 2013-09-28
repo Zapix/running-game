@@ -20,13 +20,14 @@ Game = {
     init: function(){
         Crafty.init(this.getWidth(), this.getHeight());
         Crafty.background('#FFCA80');
-        Crafty.scene('InitGame');
+        Crafty.scene('Loading');
     }
 }
 
 $textCss = {
     'font-size': '24px',
     'font-family': 'Arial',
-    'color': 'white',
-    'text-align': 'center'
+    'color': 'grey',
+    'text-align': 'center',
+    'width': '268px'
 }
