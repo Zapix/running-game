@@ -18,7 +18,7 @@ Crafty.scene('Game', function(){
     var generateBlockRow = function(){
         console.log('Generate Block');
         for(var i=1; i<Game.gameGrid.width-1; i++){
-            if(Math.random() > 0.85){
+            if(Math.random() > 0.9){
                 Crafty.e('Block').at(i, -1);
             }
         }
@@ -28,7 +28,7 @@ Crafty.scene('Game', function(){
     generateBlockRow();
 
     /*start movement of blocks*/
-    var speed = 2;
+    var speed = 1;
     Crafty.trigger('SetSpeed', speed);
 
     this.canBuildNewHandler = this.bind('CanBuildNew', function(){

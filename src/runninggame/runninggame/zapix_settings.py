@@ -11,3 +11,5 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+ZMQ_PORT = 5000
