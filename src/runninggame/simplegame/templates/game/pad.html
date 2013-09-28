@@ -15,6 +15,8 @@
         <button disabled="disabled" id="startButton" href="#" class="btn btn-danger btn-large startButton gameButton"> start</button>
         <button disabled="disabled" id="rightButton" href="#" class="btn btn-success btn-large controlButton gameButton"> right</button>
     </div>
+    <div id="message">
+    </div>
 {% endblock content %}
 
 {% block script %}
@@ -26,6 +28,7 @@
             var actor_type = '{{ actor_type }}';
             var auth_code = '{{ auth_code }}';
             var listen_actor_type = '{{ listen_actor_type }}';
+            $('#message').text('Wait connection...');
             socket = io.connect()
             socket.on('message', function(recvData){
                 console.log(recvData);
@@ -36,12 +39,14 @@
                         'action': 'send',
                         'padConnected': true
                     }));
+                    $('#message').text('Send info about gamepad');
                 }
                 if(data.padAllowed){
                     padAllowed = true;
                     $('#leftButton').removeAttr('disabled');
                     $('#startButton').removeAttr('disabled');
                     $('#rightButton').removeAttr('disabled');
+                    $('#message').text('All ok! You can play!');
                 }
             });
             socket.send(JSON.stringify({
