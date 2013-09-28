@@ -4,3 +4,5 @@
 *.db
 local_settings.py
 src/.idea
+st/*
+media/*
