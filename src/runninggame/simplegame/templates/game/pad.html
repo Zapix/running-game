@@ -11,9 +11,9 @@
 
 {% block content %}
     <div class="padButtons">
-        <a id="leftButton" href="#" class="btn btn-success btn-large controlButton"> left</a>
-        <a id="startButton" href="#" class="btn btn-danger btn-large startButton"> start</a>
-        <a id="rightButton" href="#" class="btn btn-success btn-large controlButton"> right</a>
+        <button disabled="disabled" id="leftButton" href="#" class="btn btn-success btn-large controlButton gameButton"> left</button>
+        <button disabled="disabled" id="startButton" href="#" class="btn btn-danger btn-large startButton gameButton"> start</button>
+        <button disabled="disabled" id="rightButton" href="#" class="btn btn-success btn-large controlButton gameButton"> right</button>
     </div>
 {% endblock content %}
 
@@ -21,12 +21,28 @@
     <script src="{% static "js/lib/socket.io.js" %}" type="text/javascript"></script>
     <script type="text/javascript">
         (function(){
+            var connected = false;
+            var padAllowed = false;
             var actor_type = '{{ actor_type }}';
             var auth_code = '{{ auth_code }}';
             var listen_actor_type = '{{ listen_actor_type }}';
             socket = io.connect()
             socket.on('message', function(recvData){
                 console.log(recvData);
+                var data = $.parseJSON(recvData);
+                if(data.message == 'connected'){
+                    connected = true;
+                    socket.send(JSON.stringify({
+                        'action': 'send',
+                        'padConnected': true
+                    }));
+                }
+                if(data.padAllowed){
+                    padAllowed = true;
+                    $('#leftButton').removeAttr('disabled');
+                    $('#startButton').removeAttr('disabled');
+                    $('#rightButton').removeAttr('disabled');
+                }
             });
             socket.send(JSON.stringify({
                 'action': 'subscribe',
@@ -36,22 +52,31 @@
             }));
 
             $('#leftButton').on('click', function(){
-                socket.send(JSON.stringify({
-                    'action': 'send',
-                    'leftButtonPressed': true
-                }));
+                if(connected && padAllowed){
+                    socket.send(JSON.stringify({
+                        'action': 'send',
+                        'leftButtonPressed': true
+                    }));
+                }
+                return false;
             });
             $('#startButton').on('click', function(){
-                socket.send(JSON.stringify({
-                    'action': 'send',
-                    'startButtonPressed': true
-                }));
+                if(connected && padAllowed){
+                    socket.send(JSON.stringify({
+                        'action': 'send',
+                        'startButtonPressed': true
+                    }));
+                }
+                return false;
             });
             $('#rightButton').on('click', function(){
-                socket.send(JSON.stringify({
-                    'action': 'send',
-                    'rightButtonPressed': true
-                }));
+                if(connected && padAllowed){
+                    socket.send(JSON.stringify({
+                        'action': 'send',
+                        'rightButtonPressed': true
+                    }));
+                }
+                return false;
             });
         })();
     </script>

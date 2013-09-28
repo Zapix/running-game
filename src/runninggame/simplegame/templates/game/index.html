@@ -23,6 +23,8 @@
     <script src="{% static "js/scenes.js" %}" type="text/javascript"></script>
     <script type="text/javascript">
         (function(){
+            var connected = false;
+            var padConnected = false;
             var actor_type = '{{ actor_type }}';
             var auth_code = '{{ auth_code }}';
             var listen_actor_type = '{{ listen_actor_type }}';
@@ -30,13 +32,23 @@
             socket.on('message', function(recvData){
                 console.log(recvData);
                 var data = $.parseJSON(recvData);
-                if(data.leftButtonPressed){
+                if(data.message == 'connected'){
+                    connected = true;
+                }
+                if(data.padConnected){
+                    padConnected = true;
+                    socket.send(JSON.stringify({
+                        'action': 'send',
+                        'padAllowed': true
+                    }));
+                }
+                if(data.leftButtonPressed && padConnected){
                     Crafty.trigger('LeftButtonPressed', null);
                 }
-                if(data.startButtonPressed){
+                if(data.startButtonPressed && padConnected){
                     Crafty.trigger('StartButtonPressed', null);
                 }
-                if(data.rightButtonPressed){
+                if(data.rightButtonPressed && padConnected){
                     Crafty.trigger('RightButtonPressed', null);
                 }
             });
