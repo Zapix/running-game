@@ -5,11 +5,14 @@
 {% block title %}Running game!{% endblock title %}
 
 {% block content %}
-    <h1>Running game</h1>
+    <div class="page-header">
+        <h1>Running game</h1>
+    </div>
     <div class="row">
         <div id="cr-stage"></div>
     </div>
-    <div class="row">
+    <div class="row center">
+        <strong>Gamepad link:</strong>
         <a href="{% absurl "gamepad" auth_code=auth_code %}">{% absurl "gamepad" auth_code=auth_code %}</a>
     </div>
 {% endblock content %}
