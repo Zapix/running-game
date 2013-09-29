@@ -24,3 +24,5 @@ class Game(models.Model):
             )
         else:
             return u'new game'
+
+from simplegame import signal_receivers

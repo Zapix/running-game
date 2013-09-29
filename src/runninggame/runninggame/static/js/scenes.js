@@ -50,7 +50,10 @@ Crafty.scene('Game', function(){
         this.unbind('CanBuildNew', this.canBuildNewHandler);
         this.unbind('AddOnePoint',this.addOnePointHandler);
         this.unbind('HeroDead', this.heroDeadHandler);
-        $(document).trigger('gameFinished')
+
+        var event = $.Event('gameFinished');
+        event.score = pointCounter;
+        $(document).trigger(event);
     });
 }, function(){
 });

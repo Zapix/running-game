@@ -64,10 +64,15 @@
                     'gameStarted': true
                 }));
             });
-            $(document).on('gameFinished', function(){
+            $(document).on('gameFinished', function(event){
                 socket.send(JSON.stringify({
                     'action': 'send',
                     'gameFinished': true
+                }));
+                socket.send(JSON.stringify({
+                    action: 'send_signal',
+                    event: 'game_finished',
+                    score: event.score
                 }));
             });
 

@@ -87,6 +87,7 @@ class GameNamespace(BaseNamespace):
         :type data: dict
         """
         action = data.get('action', '')
+        print action
         if action == 'subscribe':
             self.auth_code = data['auth_code']
             self.actor_type = data['actor_type']
@@ -94,11 +95,12 @@ class GameNamespace(BaseNamespace):
             gevent.spawn(listener, self, self.auth_code, listen_actor_type)
         if action == 'send' and self.auth_code and self.actor_type:
             data.pop('action')
-            print data
             gevent.spawn(send_message, publisher, self.auth_code,
                          self.actor_type, json.dumps(data))
         if action == 'send_signal':
-            signals.frontend_send(
+            print 'send_signal'
+            signals.frontend_send.send(
+                None,
                 user=self.request.user,
                 data=data
             )
