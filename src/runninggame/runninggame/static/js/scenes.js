@@ -38,7 +38,7 @@ Crafty.scene('Game', function(){
     this.addOnePointHandler = this.bind('AddOnePoint', function(){
         pointCounter++;
         if(pointCounter % 20 == 0){
-            speed++;
+            speed+=0.5;
         }
     });
     this.heroDeadHandler = this.bind('HeroDead', function(){
