@@ -16,7 +16,8 @@
             </tr>
             {% for object in object_list %}
                 <tr {% if forloop.first and page_obj.number == 1 %}class="success"{% endif %}>
-                    <td>{{ forloop.counter }}</td>
+                    <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
+
                     <td>
                         {% if object.user %}
                             <a href="{% url 'account_profile' pk=object.user.pk %}">{{ object.user|lower|capfirst }}</a>
