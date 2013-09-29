@@ -14,6 +14,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+AUTH_USER_MODEL = 'userprofile.User'
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -110,10 +112,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+
+    'south',
+
+    'userprofile',
     'simplegame',
 )
 
