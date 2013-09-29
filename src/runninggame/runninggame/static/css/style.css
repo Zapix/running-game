@@ -4,3 +4,57 @@ body {
 #cr-stage{
     margin: 20px auto 0px;
 }
+.slogan {
+    text-align: center;
+    font-size: 20pt;
+}
+
+.center {
+    text-align: center;
+}
+
+.share-links{
+   min-width: 300px;
+}
+.image-on-center{
+    margin: 0 auto;
+}
+table.no-top-line tbody > tr > th{
+    border-top: none;
+}
+
+html,body {
+    height: 100%;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+
+#main {
+    overflow: hidden;
+    padding-bottom: 60px;
+}
+#push, #footer {
+    height: 60px;
+}
+#footer {
+    background-color: #2B1D1D;
+}
+
+#footer > .container{
+    padding-top:20px;
+}
+
+      /* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
