@@ -5,7 +5,7 @@ Crafty.scene('Game', function(){
         Crafty.e('RightWall').at(Game.gameGrid.width - 1, y);
     }
     for(var x=0; x < Game.gameGrid.width - 1; x++){
-        Crafty.e('Destroyer').at(x, Game.gameGrid.height)
+        Crafty.e('Destroyer').at(x, Game.gameGrid.height + 1);
     }
     Crafty.e('BuildNewFlagReceiver').at(0, 1);
     Crafty.e('AddPointCell').at(
