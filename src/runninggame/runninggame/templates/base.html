@@ -31,6 +31,19 @@
                 <li><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">{{ user|lower|capfirst }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="download">
+                            <li><a tabindex="-1" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a tabindex="-1" href="{% url 'logout' %}">Log Out</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                {% endif %}
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>
@@ -44,8 +57,8 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{% static "js/lib/bootstrap.min.js" %}" type="text/javascript"></script>
 <script src="{% static "js/lib/jquery.min.js" %}" type="text/javascript"></script>
+<script src="{% static "js/lib/bootstrap.min.js" %}" type="text/javascript"></script>
 {% block script %}
 {% endblock script %}
 </body>

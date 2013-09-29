@@ -7,6 +7,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     username = models.CharField('Username', max_length=255, unique=True)
 
     USERNAME_FIELD = 'username'
+    objects = auth_models.UserManager()
 
     class Meta:
         verbose_name = 'user'
@@ -17,3 +18,10 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
             return self.username
         else:
             return u'New user'
+
+    @property
+    def is_staff(self):
+        """
+        Only superusers is staff
+        """
+        return self.is_superuser

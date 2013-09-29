@@ -11,7 +11,10 @@ urlpatterns = patterns(
     '',
     url(r'^', include('simplegame.urls')),
     url(r'^', include('websocket.urls')),
-    url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('userprofile.urls'))
 )
 
 if settings.DEBUG:

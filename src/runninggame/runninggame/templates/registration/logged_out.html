@@ -1,0 +1,13 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Logged out{% endblock title %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Logged out</h1>
+    </div>
+    <p>
+        Thanks for spending time with us.
+        <a href="{% url 'login' %}">Log in agin</a>
+    </p>
+{% endblock content %}
