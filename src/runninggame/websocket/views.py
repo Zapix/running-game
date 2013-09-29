@@ -34,8 +34,8 @@ def send_message(socket, auth_code, actor_type, message):
 
 def listener(socketio, auth_code, actor_type):
     """
-    Connects to zmq port as subscriber listens port. Receives only messages with
-    auth_code and actor_type.
+    Connects to zmq port as subscriber listens port. Receives only messages
+    with auth_code and actor_type.
     :param socketio: socket for sending recieved data
     :type socketio: object
     :param auth_code: auth_code for listening
@@ -58,7 +58,7 @@ def listener(socketio, auth_code, actor_type):
     while True:
         message = subscriber.recv()
         if message:
-            auth_code, actor_type, message = (lambda *args:(
+            auth_code, actor_type, message = (lambda *args: (
                 args[0],
                 args[1],
                 ':'.join(args[2:])

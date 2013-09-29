@@ -25,4 +25,4 @@ class Game(models.Model):
         else:
             return u'new game'
 
-from simplegame import signal_receivers
+from simplegame import signal_receivers # flake8: noqa
