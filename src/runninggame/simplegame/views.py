@@ -4,6 +4,8 @@ import datetime
 
 from django.views import generic as cbv
 
+from . import models
+
 
 class BaseConnectorTemplateView(cbv.TemplateView):
     listen_actor_type = None
@@ -55,3 +57,10 @@ class GamePadView(BaseConnectorTemplateView):
         Gets auth code from request url
         """
         return self.kwargs.get('auth_code', '')
+
+
+class PlayedGameListView(cbv.ListView):
+    model = models.Game
+    template_name = 'game/game_list.html'
+
+    paginate_by = 20

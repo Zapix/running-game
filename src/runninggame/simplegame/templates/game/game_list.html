@@ -1,0 +1,60 @@
+{% extends "game/base.html" %}
+
+{% block title %}Played game list{% endblock title %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Played game list</h1>
+    </div>
+    <div>
+        <table class="table">
+            <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+            {% for object in object_list %}
+                <tr {% if forloop.first and page_obj.number == 1 %}class="success"{% endif %}>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% if object.user %}
+                            <a href="{% url 'account_profile' pk=object.user.pk %}">{{ object.user|lower|capfirst }}</a>
+                        {% else %}
+                            Anonymous
+                        {% endif %}
+                    </td>
+                    <td>{{ object.score  }}</td>
+                    <td>{{ object.created }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% if page_obj.has_other_pages %}
+            <div>
+                <ul class="pager">
+                    {% if page_obj.has_previous %}
+                        <li class="previous">
+                            <a href="?page={{ page_obj.previous_page_number }}">← prev</a>
+                        </li>
+                    {% else %}
+                        <li class="previous disabled">
+                            <a href="#">← prev</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        current page: {{ page_obj.number }}
+                    </li>
+                    {% if page_obj.has_next %}
+                        <li class="next">
+                            <a href="?page={{ page_obj.next_page_number }}">next →</a>
+                        </li>
+                    {% else %}
+                        <li class="next disabled">
+                            <a href="#">next →</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
