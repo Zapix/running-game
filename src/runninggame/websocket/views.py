@@ -9,6 +9,8 @@ from gevent_zeromq import zmq
 from socketio import socketio_manage
 from socketio.namespace import BaseNamespace
 
+from . import signals
+
 context = zmq.Context()
 publisher = context.socket(zmq.PUB)
 publisher.bind('tcp://127.0.0.1:%d' % settings.ZMQ_PORT)
@@ -84,16 +86,24 @@ class GameNamespace(BaseNamespace):
         :param data: received data from client
         :type data: dict
         """
-        if data['action'] == 'subscribe':
+        action = data.get('action', '')
+        print action
+        if action == 'subscribe':
             self.auth_code = data['auth_code']
             self.actor_type = data['actor_type']
             listen_actor_type = data['listen_actor_type']
             gevent.spawn(listener, self, self.auth_code, listen_actor_type)
-        if data['action'] == 'send' and self.auth_code and self.actor_type:
+        if action == 'send' and self.auth_code and self.actor_type:
             data.pop('action')
-            print data
             gevent.spawn(send_message, publisher, self.auth_code,
                          self.actor_type, json.dumps(data))
+        if action == 'send_signal':
+            print 'send_signal'
+            signals.frontend_send.send(
+                None,
+                user=self.request.user,
+                data=data
+            )
 
 
 def socketio(request):

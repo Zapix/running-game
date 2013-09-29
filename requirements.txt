@@ -1,4 +1,6 @@
+gevent_zeromq
 Django==1.5.4
+South==0.8.2
 argparse==1.2.1
 gevent==0.13.8
 gevent-socketio==0.3.5-rc2

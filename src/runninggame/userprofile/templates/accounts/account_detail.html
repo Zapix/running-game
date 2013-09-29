@@ -1,0 +1,33 @@
+{% extends "accounts/base.html" %}
+
+{% block title %}Profile: {{ object }}{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>Profile: {{ object }}</h1>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            <h3>Base information:</h3>
+            <p><strong>Game played: {{ object.game_set.count }}</strong></p>
+        </div>
+        <div class="span6">
+           <h3>Top game played</h3>
+           <table class="table">
+               <tr>
+                   <th>#</th>
+                   <th>score</th>
+                   <th>date</th>
+               </tr>
+               {% for game in object.top_game_played_by_score %}
+                    <tr {% if forloop.first %}class="success"{% endif %}>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ game.score  }}</td>
+                        <td>{{ game.created }}</td>
+                    </tr>
+               {% endfor %}
+           </table>
+        </div>
+    </div>
+
+{% endblock %}
